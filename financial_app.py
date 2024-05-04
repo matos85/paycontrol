@@ -13,6 +13,8 @@ if not os.path.exists(data_file):
 
 # Функция для чтения данных из файла
 def read_data() -> List[Dict[str, str]]:
+    # Чтение данных из файла и возврат списка словарей
+    # Каждый словарь представляет собой одну запись о финансах
     with open(data_file, 'r', newline='') as file:
         reader = csv.DictReader(file)
         data = [row for row in reader]
@@ -20,6 +22,8 @@ def read_data() -> List[Dict[str, str]]:
 
 # Функция для записи данных в файл
 def write_data(data: List[Dict[str, str]]):
+    # Запись данных в файл
+    # Принимает: список словарей с данными о финансах
     with open(data_file, 'w', newline='') as file:
         headers = ['date', 'category', 'amount', 'description']
         writer = csv.DictWriter(file, fieldnames=headers)
@@ -28,6 +32,8 @@ def write_data(data: List[Dict[str, str]]):
 
 # Функция для отображения текущего баланса
 def display_balance(data: List[Dict[str, str]]):
+    # Отображение текущего баланса
+    # Вычисляет общий доход, общие расходы и баланс на основе данных
     total_income = sum(float(row['amount']) for row in data if row['category'] == 'income')
     total_expense = sum(float(row['amount']) for row in data if row['category'] == 'expense')
     total_balance = total_income - total_expense
@@ -37,14 +43,17 @@ def display_balance(data: List[Dict[str, str]]):
 
 # Функция для добавления новой записи
 def add_record(date: str, category: str, amount: str, description: str, data: List[Dict[str, str]]):
+    # Добавление новой записи о финансах в список данных
     data.append({'date': date, 'category': category, 'amount': amount, 'description': description})
 
 # Функция для редактирования записи
 def edit_record(index: int, date: str, category: str, amount: str, description: str, data: List[Dict[str, str]]):
+    # Редактирование существующей записи о финансах в списке данных
     data[index] = {'date': date, 'category': category, 'amount': amount, 'description': description}
 
 # Функция для поиска записей
 def search_records(data: List[Dict[str, str]], category: str = None, date: str = None, amount: str = None):
+    # Поиск записей о финансах по заданным критериям
     results = data
     if category:
         results = [row for row in results if row['category'] == category]
@@ -53,22 +62,3 @@ def search_records(data: List[Dict[str, str]], category: str = None, date: str =
     if amount:
         results = [row for row in results if row['amount'] == amount]
     return results
-#
-# # Пример использования функций
-# data = read_data()
-#
-# # Добавление новой записи
-# add_record('2022-10-01', 'income', '1000', 'Salary', data)
-#
-# # Редактирование записи
-# edit_record(0, '2022-10-01', 'income', '1200', 'Salary', data)
-#
-# # Вывод текущего баланса
-# display_balance(data)
-#
-# # Поиск записей по критериям
-# results = search_records(data, category='income', date='2022-06-01', amount='1000')
-# print(results)
-#
-# # Запись данных обратно в файл
-# write_data(data)
