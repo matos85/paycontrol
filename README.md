@@ -6,6 +6,11 @@
    - Откройте командную строку в Windows.
    - Перейдите в каталог, содержащий файл financial_app.py.
    - Запустите программу, введя команду python financial_app.py.
+(
+не забудьте импортировать файл from financial_app import *  для financial_app
+и
+from OOP_financial_app import * для ООП версии
+)
   
      1.2 Запуск программы Linux:
    - Сохраните предоставленный вами файл financial_app.py.
@@ -48,3 +53,26 @@ print(results)
 
 Запись данных обратно в файл
 write_data(data)
+
+
+
+Для ООП:
+Пример использования класса FinancialApp
+app = FinancialApp()
+data = app.read_data()
+
+Добавление новой записи
+app.add_record('2022-10-01', 'income', '1000', 'Salary', data)
+
+Редактирование записи
+app.edit_record(0, '2022-10-01', 'income', '1200', 'Salary', data)
+
+Вывод текущего баланса
+app.display_balance(data)
+
+Поиск записей по критериям
+results = app.search_records(data, category='income', date='2022-06-01', amount='1000')
+print(results)
+
+Запись данных обратно в файл
+app.write_data(data)
